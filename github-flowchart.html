@@ -1,244 +1,642 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="robots" content="index, follow" />
-  <title>AI Lesson Plan Generator Workflows</title>
-  <meta name="description" content="Visualization of the Simple, Standard, and Advanced n8n workflows for AI-powered lesson plan generation." />
+  <title>AI Lesson Plan Generator — Workflows Comparison</title>
+  <meta name="description" content="Compare Simple / Standard / Advanced n8n workflows for AI-powered lesson plan generation. Each node shows configuration details for fast comparison." />
 
   <style>
-    body {
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(180deg, #f8faff 0%, #eef1ff 100%);
-      color: #333;
-      text-align: center;
-      padding: 40px 10px;
-      margin: 0;
+    :root{
+      --accent:#667eea;
+      --accent-dark:#4b56d2;
+      --card-bg:#ffffff;
+      --muted:#6b7280;
+      --panel:#f6f7fb;
+      --border:#e6e9ff;
+      --radius:14px;
+      --max-width:1200px;
     }
 
-    h1 {
-      color: #4b56d2;
-      margin-bottom: 10px;
-      font-size: 2.2em;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, -apple-system, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f8faff 0%, #eef1ff 100%);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+      display:flex;
+      justify-content:center;
     }
 
-    h2 {
-      color: #4b56d2;
-      margin-top: 60px;
-      font-size: 1.7em;
-      text-transform: uppercase;
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
     }
 
-    p.subtitle {
-      color: #666;
-      font-size: 1em;
-      margin-bottom: 40px;
+    header{
+      margin-bottom:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
     }
 
-    .workflow {
-      display: inline-block;
-      text-align: left;
-      max-width: 600px;
-      margin-top: 20px;
+    header h1{
+      margin:0;
+      color:var(--accent-dark);
+      font-size:1.6rem;
+      letter-spacing:0.2px;
     }
 
-    .node {
-      background: #fff;
-      border: 2px solid #d8dcff;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin: 10px 0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    header p{
+      margin:0;
+      color:var(--muted);
+      font-size:0.95rem;
     }
 
-    .node:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      align-items:start;
     }
 
-    .node h3 {
-      color: #4b56d2;
-      font-size: 1.05em;
-      margin: 0 0 8px 0;
+    /* Column container */
+    .column{
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:0 8px 30px rgba(12,16,50,0.06);
+      border:1px solid var(--border);
+      min-height:120px;
     }
 
-    .node p {
-      margin: 0;
-      color: #555;
-      font-size: 0.95em;
-      line-height: 1.4;
+    .col-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .col-title{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .col-title h2{
+      margin:0;
+      color:var(--accent-dark);
+      font-size:1rem;
+      letter-spacing:0.6px;
+    }
+    .col-sub{
+      font-size:0.85rem;
+      color:var(--muted);
     }
 
-    .arrow {
-      font-size: 26px;
-      text-align: center;
-      color: #4b56d2;
-      margin: 6px 0;
+    /* Node card (like image) */
+    .node{
+      background:var(--card-bg);
+      border-radius:12px;
+      padding:14px;
+      border:2px solid transparent;
+      box-shadow:0 6px 18px rgba(17,24,39,0.04);
+      margin-bottom:14px;
+      transition:transform .14s ease, box-shadow .14s ease;
+      position:relative;
+    }
+    .node:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 30px rgba(12,16,50,0.08);
     }
 
-    footer {
-      margin-top: 80px;
-      font-size: 0.85em;
-      color: #777;
+    .node-top{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .node-emoji{
+      font-size:26px;
+      width:42px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      background:linear-gradient(180deg,#f3f5ff,#ffffff);
+      border:1px solid var(--border);
+      flex-shrink:0;
+    }
+    .node-title{
+      font-weight:700;
+      color:#111827;
+      font-size:0.99rem;
+    }
+    .node-desc{
+      margin-top:8px;
+      font-size:0.90rem;
+      color:var(--muted);
+      line-height:1.35;
     }
 
-    /* Section separation */
-    section {
-      padding-bottom: 50px;
-      border-bottom: 2px solid #e0e3ff;
+    /* Configuration box */
+    .config{
+      margin-top:12px;
+      background:var(--panel);
+      border-radius:10px;
+      padding:12px;
+      border:1px solid #e9eefb;
+      font-size:0.88rem;
+      color:#2f3b4a;
+      line-height:1.35;
+    }
+    .config .cfg-title{
+      font-weight:800;
+      margin-bottom:8px;
+      color:#111827;
+      font-size:0.9rem;
+    }
+
+    .badge{
+      font-size:0.75rem;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(102,126,234,0.12);
+      color:var(--accent-dark);
+      font-weight:700;
+    }
+
+    /* Legend and notes */
+    .legend{
+      margin-top:14px;
+      background:transparent;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:18px;
+      font-size:0.85rem;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:760px){
+      .grid{grid-template-columns:1fr}
+      header{flex-direction:column; align-items:flex-start}
+      .wrap{padding:0 6px}
     }
   </style>
 </head>
-
 <body>
-  <h1>AI Lesson Plan Generator Workflows</h1>
-  <p class="subtitle">Comparison of automation complexity: Simple, Standard, and Advanced versions.</p>
-
-  <!-- SIMPLE WORKFLOW -->
-  <section>
-    <h2>Simple Workflow</h2>
-    <div class="workflow">
-      <div class="node">
-        <h3>1️⃣ Google Drive Trigger</h3>
-        <p>Detects new PDF uploads from teachers.</p>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>AI Lesson Plan Generator — Workflow Comparison</h1>
+        <p>Three-column visual comparison: Simple • Standard • Advanced — each node shows its configuration for quick side-by-side review.</p>
       </div>
-      <div class="arrow">↓</div>
-
-      <div class="node">
-        <h3>2️⃣ Extract PDF Text</h3>
-        <p>Converts uploaded PDF to plain text.</p>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <div class="badge">Simple: 5 nodes</div>
+        <div class="badge" style="background:rgba(0,123,255,0.12); color:#0b63d6">Standard: 8 nodes</div>
+        <div class="badge" style="background:rgba(111,66,193,0.10); color:#4a2689">Advanced: 10+ nodes</div>
       </div>
-      <div class="arrow">↓</div>
+    </header>
 
-      <div class="node">
-        <h3>3️⃣ Generate Lesson Plan (AI)</h3>
-        <p>Uses AI to create a lesson plan directly from text.</p>
-      </div>
-      <div class="arrow">↓</div>
+    <main class="grid" aria-live="polite">
+      <!-- SIMPLE COLUMN -->
+      <section class="column" aria-labelledby="simple-title">
+        <div class="col-head">
+          <div class="col-title">
+            <h2 id="simple-title">Simple Workflow</h2>
+            <div class="col-sub">Fastest path: minimal steps</div>
+          </div>
+          <div class="col-sub">5 nodes</div>
+        </div>
 
-      <div class="node">
-        <h3>4️⃣ Send Notification</h3>
-        <p>Emails teacher with AI-generated plan summary.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <!-- Nodes for Simple -->
+        <article class="node" aria-label="Google Drive Trigger">
+          <div class="node-top">
+            <div class="node-emoji">📁</div>
+            <div>
+              <div class="node-title">Google Drive Trigger</div>
+              <div class="node-desc">Watches a folder for new PDF uploads.</div>
+            </div>
+          </div>
+          <div class="config" role="group" aria-label="Configuration for Google Drive Trigger">
+            <div class="cfg-title">Configuration:</div>
+            Folder: <strong>'Tests to Convert'</strong><br>
+            Poll Time: Every 1 minute<br>
+            File Type Filter: <code>.pdf</code><br>
+            Event: File Created
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>5️⃣ Log Success</h3>
-        <p>Records workflow completion status.</p>
-      </div>
-    </div>
-  </section>
+        <article class="node" aria-label="Extract PDF Text">
+          <div class="node-top">
+            <div class="node-emoji">📄</div>
+            <div>
+              <div class="node-title">Extract PDF Text</div>
+              <div class="node-desc">Converts PDF to plain text for AI processing.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Method: OCR + Text Parser<br>
+            Output: Raw text string<br>
+            Handles: Scanned & digital PDFs<br>
+            Cleanup: Standard mode
+          </div>
+        </article>
 
-  <!-- STANDARD WORKFLOW -->
-  <section>
-    <h2>Standard Workflow</h2>
-    <div class="workflow">
-      <div class="node">
-        <h3>1️⃣ Google Drive Trigger</h3>
-        <p>Watches for new lesson-related PDF uploads.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Generate Lesson Plan">
+          <div class="node-top">
+            <div class="node-emoji">🤖</div>
+            <div>
+              <div class="node-title">Generate Lesson Plan (AI)</div>
+              <div class="node-desc">Creates a lesson plan using extracted text.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Model: GPT-4 (or similar)<br>
+            Max Tokens: 2000–4000<br>
+            Temperature: 0.6–0.8<br>
+            Prompt Template: Minimal (text → plan)
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>2️⃣ Extract PDF Text</h3>
-        <p>Extracts all text for AI analysis.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Send Notification">
+          <div class="node-top">
+            <div class="node-emoji">📧</div>
+            <div>
+              <div class="node-title">Send Notification</div>
+              <div class="node-desc">Emails teacher with the generated plan summary or link.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            To: Teacher's email (from trigger)<br>
+            Subject: "Lesson Plan Ready"<br>
+            Body: Link + summary (HTML)<br>
+            SMTP: School email server / SendGrid
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>3️⃣ Extract Metadata</h3>
-        <p>Reads file name, date, grade, and subject.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Log Success">
+          <div class="node-top">
+            <div class="node-emoji">✅</div>
+            <div>
+              <div class="node-title">Log Success</div>
+              <div class="node-desc">Track completed workflows for analytics.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Logs to: Google Sheets / Airtable<br>
+            Metrics: Time, file name, status<br>
+            Retention: Permanent record
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>4️⃣ Generate Lesson Plan (AI)</h3>
-        <p>Creates structured lesson plan content using metadata.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <div class="legend">
+          <strong>Notes:</strong> Simple flow is fast to set up and suitable for small teams or low customization needs.
+        </div>
+      </section>
 
-      <div class="node">
-        <h3>5️⃣ Create Google Doc</h3>
-        <p>Formats plan and saves it to Google Drive.</p>
-      </div>
-      <div class="arrow">↓</div>
+      <!-- STANDARD COLUMN -->
+      <section class="column" aria-labelledby="standard-title">
+        <div class="col-head">
+          <div class="col-title">
+            <h2 id="standard-title">Standard Workflow</h2>
+            <div class="col-sub">Balanced: metadata + formatting</div>
+          </div>
+          <div class="col-sub">8 nodes</div>
+        </div>
 
-      <div class="node">
-        <h3>6️⃣ Send Notification</h3>
-        <p>Sends the document link to the teacher.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <!-- Standard nodes -->
+        <article class="node" aria-label="Google Drive Trigger (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">📁</div>
+            <div>
+              <div class="node-title">Google Drive Trigger</div>
+              <div class="node-desc">Watches for new lesson-related PDF uploads.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Folder: 'Lessons' or 'Teacher Uploads'<br>
+            Poll Time: 1 minute<br>
+            File Filter: <code>.pdf</code>
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>7️⃣ Log Success</h3>
-        <p>Registers completion in workflow logs.</p>
-      </div>
-    </div>
-  </section>
+        <article class="node" aria-label="Extract PDF Text (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">📄</div>
+            <div>
+              <div class="node-title">Extract PDF Text</div>
+              <div class="node-desc">Extracts full text (questions, prompts) for analysis.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Method: OCR + Text Parser<br>
+            Output: Structured text + raw<br>
+            Post-process: remove headers/footers
+          </div>
+        </article>
 
-  <!-- ADVANCED WORKFLOW -->
-  <section>
-    <h2>Advanced Workflow</h2>
-    <div class="workflow">
-      <div class="node">
-        <h3>1️⃣ Google Drive Trigger</h3>
-        <p>Monitors multiple shared folders for new test uploads.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Extract Metadata (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">🏷️</div>
+            <div>
+              <div class="node-title">Extract Metadata</div>
+              <div class="node-desc">Gets filename, date, and detects grade/subject.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Extracts: Filename, upload date<br>
+            Auto-detect: Grade level, Subject (NLP)<br>
+            Node Type: JavaScript / Regex
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>2️⃣ Extract PDF Text</h3>
-        <p>Extracts question and answer structures from tests.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Standards Lookup (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">📚</div>
+            <div>
+              <div class="node-title">Standards Lookup</div>
+              <div class="node-desc">Fetch relevant curriculum standards.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Source: Google Sheets / Airtable / DB<br>
+            Match by: Grade + Subject<br>
+            Output: Standards array
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>3️⃣ Extract Metadata</h3>
-        <p>Detects filename, grade, subject, and test date.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Merge Data (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">🔗</div>
+            <div>
+              <div class="node-title">Merge Data</div>
+              <div class="node-desc">Combines extracted text, metadata, and standards.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Mode: Combine / Merge by keys<br>
+            Output: Unified JSON for AI prompt
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>4️⃣ Standards Lookup</h3>
-        <p>Fetches matching educational standards (Common Core, NGSS, etc.).</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Generate Lesson Plan (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">🤖</div>
+            <div>
+              <div class="node-title">Generate Lesson Plan (AI)</div>
+              <div class="node-desc">Creates a structured, standards-aware lesson plan.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Model: GPT-4 or Claude Sonnet<br>
+            Max Tokens: 3000–4000<br>
+            Temperature: 0.6–0.8<br>
+            Includes: standards alignment section
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>5️⃣ Merge Data</h3>
-        <p>Combines standards, metadata, and extracted text for the AI prompt.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Create Google Doc (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">📝</div>
+            <div>
+              <div class="node-title">Create Google Doc</div>
+              <div class="node-desc">Generates formatted document and saves to Drive.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Template: Pre-formatted<br>
+            Folder: 'Generated Lesson Plans'<br>
+            Permissions: Editable by teacher
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>6️⃣ Generate Lesson Plan (AI)</h3>
-        <p>Creates a detailed, standards-aligned lesson plan using AI.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <article class="node" aria-label="Send Notification (Standard)">
+          <div class="node-top">
+            <div class="node-emoji">📧</div>
+            <div>
+              <div class="node-title">Send Notification</div>
+              <div class="node-desc">Email teacher with document link and summary.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            To: teacher email<br>
+            Subject: 'Lesson Plan Ready'<br>
+            Body: Link + short summary
+          </div>
+        </article>
 
-      <div class="node">
-        <h3>7️⃣ Create Google Doc</h3>
-        <p>Generates a formatted document ready for classroom use.</p>
-      </div>
-      <div class="arrow">↓</div>
+        <div class="legend">
+          <strong>Notes:</strong> Standard adds metadata & formatting steps for better alignment and traceability.
+        </div>
+      </section>
 
-      <div class="node">
-        <h3>8️⃣ Send Notification</h3>
-        <p>Notifies teacher with the Google Docs link.</p>
-      </div>
-      <div class="arrow">↓</div>
+      <!-- ADVANCED COLUMN -->
+      <section class="column" aria-labelledby="advanced-title">
+        <div class="col-head">
+          <div class="col-title">
+            <h2 id="advanced-title">Advanced Workflow</h2>
+            <div class="col-sub">Full pipeline + error handling & analytics</div>
+          </div>
+          <div class="col-sub">10+ nodes</div>
+        </div>
 
-      <div class="node">
-        <h3>9️⃣ Log Success</h3>
-        <p>Logs the result and runtime data to analytics sheet.</p>
-      </div>
-    </div>
-  </section>
+        <!-- Advanced nodes -->
+        <article class="node" aria-label="Google Drive Trigger (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">📁</div>
+            <div>
+              <div class="node-title">Google Drive Trigger</div>
+              <div class="node-desc">Monitors multiple shared folders (tests, homework).</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Multiple folders: Teachers & Admin<br>
+            Poll: 30s–1min<br>
+            Filter: <code>.pdf</code>, exclude drafts
+          </div>
+        </article>
 
-  <footer>
-    <p>© 2025 ClusterFlow | Automated Education Tools</p>
-  </footer>
+        <article class="node" aria-label="Extract PDF Text (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">📄</div>
+            <div>
+              <div class="node-title">Extract PDF Text</div>
+              <div class="node-desc">High-accuracy extraction — tags Q/A structure.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Method: OCR + structured parser<br>
+            Output: Questions array + raw text<br>
+            Post: normalize punctuation & encoding
+          </div>
+        </article>
+
+        <article class="node" aria-label="Extract Metadata (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">🏷️</div>
+            <div>
+              <div class="node-title">Extract Metadata</div>
+              <div class="node-desc">Detects filename, grade, subject, test date, and tags.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Extracts: filename, date, grade, subject<br>
+            Methods: regex + NLP classifier<br>
+            Output: metadata JSON
+          </div>
+        </article>
+
+        <article class="node" aria-label="Standards Lookup (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">📚</div>
+            <div>
+              <div class="node-title">Standards Lookup</div>
+              <div class="node-desc">Queries standards DB (Common Core / NGSS / State).</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Source: Sheets / Airtable / API<br>
+            Match: grade + topic + keywords<br>
+            Filter: active curriculum only
+          </div>
+        </article>
+
+        <article class="node" aria-label="Merge Data (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">🔗</div>
+            <div>
+              <div class="node-title">Merge Data</div>
+              <div class="node-desc">Unifies metadata, standards, and extracted questions for AI prompt.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Mode: deep-merge by keys<br>
+            Output: single prompt object<br>
+            Validation: schema check
+          </div>
+        </article>
+
+        <article class="node" aria-label="Generate Lesson Plan (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">🤖</div>
+            <div>
+              <div class="node-title">Generate Lesson Plan (AI)</div>
+              <div class="node-desc">Produces standards-aligned, scaffolded lesson plans.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Model: GPT-4 / Claude Sonnet (preferred)<br>
+            Max Tokens: 4000<br>
+            Temperature: 0.4–0.7<br>
+            Includes: objectives, assessments, differentiation
+          </div>
+        </article>
+
+        <article class="node" aria-label="Create Google Doc (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">📝</div>
+            <div>
+              <div class="node-title">Create Google Doc</div>
+              <div class="node-desc">Creates formatted doc, stores with metadata and access controls.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Template: teacher-ready with sections<br>
+            Folder: 'Generated Lesson Plans' (by school)<br>
+            Permissions: editable + share settings
+          </div>
+        </article>
+
+        <article class="node" aria-label="Send Notification (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">📧</div>
+            <div>
+              <div class="node-title">Send Notification</div>
+              <div class="node-desc">Notifies teacher & optionally admins with analytics link.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            To: teacher + admin (if flagged)<br>
+            Body: doc link + summary + next steps<br>
+            Retry: 2 attempts on failure
+          </div>
+        </article>
+
+        <article class="node" aria-label="Log Success (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">📊</div>
+            <div>
+              <div class="node-title">Log Success</div>
+              <div class="node-desc">Saves run metrics for dashboards and reports.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Destination: Google Sheets / BigQuery<br>
+            Metrics: runtime, tokens, status, file id<br>
+            Retention & privacy policies applied
+          </div>
+        </article>
+
+        <article class="node" aria-label="Error Handler (Advanced)">
+          <div class="node-top">
+            <div class="node-emoji">⚠️</div>
+            <div>
+              <div class="node-title">Error Handler</div>
+              <div class="node-desc">Catches pipeline failures and alerts owners.</div>
+            </div>
+          </div>
+          <div class="config">
+            <div class="cfg-title">Configuration:</div>
+            Action: email admin + log details<br>
+            Retry: 2 attempts<br>
+            Alert: immediate if critical
+          </div>
+        </article>
+
+        <div class="legend">
+          <strong>Notes:</strong> Advanced pipeline is designed for scale — validation, observability, and robust error handling included.
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2025 ClusterFlow • Built for easy comparison and documentation
+    </footer>
+  </div>
 </body>
 </html>
