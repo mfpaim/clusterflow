@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lesson Plan Generator - Quick Reference</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; }
+            .no-print { display: none; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .reference-card {
+            width: 8.5in;
+            height: 11in;
+            background: white;
+            margin: 0 auto;
+            padding: 0.4in;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 0.2in;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.2in;
+        }
+        
+        .section {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-icon {
+            font-size: 20px;
+        }
+        
+        .steps {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .steps li {
+            padding: 6px 0 6px 30px;
+            position: relative;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .steps li:before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 6px;
+            background: #667eea;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .tips-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tips-list li {
+            padding: 5px 0 5px 25px;
+            position: relative;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+        
+        .tips-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 5px;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .dont-list li:before {
+            content: "✗";
+            color: #dc3545;
+        }
+        
+        .info-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .info-box strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .troubleshooting {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .troubleshooting h2 {
+            color: #dc3545;
+        }
+        
+        .table-style {
+            width: 100%;
+            font-size: 11px;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+        
+        .table-style td {
+            padding: 5px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .table-style td:first-child {
+            font-weight: bold;
+            color: #dc3545;
+            width: 35%;
+        }
+        
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            font-size: 11px;
+        }
+        
+        .footer-section h3 {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #ffc107;
+        }
+        
+        .footer-section p {
+            margin: 2px 0;
+            line-height: 1.4;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .print-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        }
+        
+        .naming-examples {
+            font-size: 11px;
+            margin-top: 5px;
+        }
+        
+        .good-example {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .bad-example {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="window.print()">🖨️ Print This Card</button>
+    
+    <div class="reference-card">
+        <div class="header">
+            <h1>🎓 AI Lesson Plan Generator</h1>
+            <p>Your Quick Reference Guide - Save 2-3 Hours Per Plan!</p>
+        </div>
+        
+        <div class="content">
+            <!-- Quick Start Section -->
+            <div class="section">
+                <h2><span class="section-icon">⚡</span>Quick Start (3 Steps)</h2>
+                <ul class="steps">
+                    <li data-step="1"><strong>Upload</strong> your test PDF to the <span class="highlight">"Tests to Convert"</span> folder in Google Drive</li>
+                    <li data-step="2"><strong>Wait</strong> 3-5 minutes for automated processing</li>
+                    <li data-step="3"><strong>Check email</strong> for your ready-to-use lesson plan link</li>
+                </ul>
+                <div class="info-box" style="margin-top: 10px;">
+                    <strong>⏱️ Processing Time:</strong>
+                    Typically 3-5 minutes from upload to email. Check spam folder if not received!
+                </div>
+            </div>
+            
+            <!-- File Naming Section -->
+            <div class="section">
+                <h2><span class="section-icon">📝</span>File Naming Best Practices</h2>
+                <div class="naming-examples">
+                    <p><span class="good-example">✓ GOOD:</span> Grade5_Math_Fractions_Test.pdf</p>
+                    <p><span class="good-example">✓ GOOD:</span> 8th_Science_CellStructure_Quiz.pdf</p>
+                    <p><span class="good-example">✓ GOOD:</span> Grade3_Reading_Assessment.pdf</p>
+                    <p style="margin-top: 8px;"><span class="bad-example">✗ AVOID:</span> test.pdf or quiz1.pdf</p>
+                </div>
+                <div style="margin-top: 10px; padding: 8px; background: white; border-radius: 4px; font-size: 11px;">
+                    <strong>Format:</strong> Grade[#]_[Subject]_[Topic]_Test.pdf<br>
+                    <strong>Why?</strong> Better detection → Better lesson plans!
+                </div>
+            </div>
+            
+            <!-- Tips for Success -->
+            <div class="section">
+                <h2><span class="section-icon">💡</span>Tips for Best Results</h2>
+                <ul class="tips-list">
+                    <li>Use <strong>clear, typed PDFs</strong> (not handwritten)</li>
+                    <li><strong>Include grade and subject</strong> in filename</li>
+                    <li>Upload <strong>one test per file</strong></li>
+                    <li><strong>Review and customize</strong> the generated plan</li>
+                    <li>Upload <strong>day before</strong> you need it</li>
+                    <li><strong>Share with colleagues</strong> for consistency</li>
+                </ul>
+            </div>
+            
+            <!-- What You Get -->
+            <div class="section">
+                <h2><span class="section-icon">📚</span>Your Lesson Plan Includes</h2>
+                <ul class="tips-list">
+                    <li>Standards-aligned learning objectives</li>
+                    <li>Complete 60-minute lesson structure</li>
+                    <li>Differentiation strategies (ELL, IEP, advanced)</li>
+                    <li>Materials and resources needed</li>
+                    <li>Formative and summative assessments</li>
+                    <li>Homework and extension activities</li>
+                    <li>Teacher reflection prompts</li>
+                </ul>
+            </div>
+            
+            <!-- Troubleshooting -->
+            <div class="section troubleshooting full-width">
+                <h2><span class="section-icon">🔧</span>Quick Troubleshooting</h2>
+                <table class="table-style">
+                    <tr>
+                        <td>No email received?</td>
+                        <td>Check spam folder • Wait 10 min • Check "Generated Lesson Plans" folder directly</td>
+                    </tr>
+                    <tr>
+                        <td>Plan doesn't match test?</td>
+                        <td>Use clearer filename • Re-scan PDF at higher quality • Check if file uploaded correctly</td>
+                    </tr>
+                    <tr>
+                        <td>Can't find upload folder?</td>
+                        <td>Search "Tests to Convert" in Drive • Check "Shared with me" • Contact tech coordinator</td>
+                    </tr>
+                    <tr>
+                        <td>Upload fails?</td>
+                        <td>Check file size (<10MB) • Verify internet connection • Try different browser</td>
+                    </tr>
+                    <tr>
+                        <td>Wrong standards listed?</td>
+                        <td>Verify filename grade/subject • Manually edit in Google Doc • Report to tech team</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Do's and Don'ts -->
+            <div class="section">
+                <h2><span class="section-icon">✅</span>DO These Things</h2>
+                <ul class="tips-list">
+                    <li>Name files descriptively</li>
+                    <li>Review plans before teaching</li>
+                    <li>Customize for your students</li>
+                    <li>Keep tests organized</li>
+                    <li>Share with your team</li>
+                    <li>Provide feedback to improve system</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2><span class="section-icon">⛔</span>DON'T Do These Things</h2>
+                <ul class="tips-list dont-list">
+                    <li>Upload at the last minute</li>
+                    <li>Use vague filenames (test.pdf)</li>
+                    <li>Upload handwritten tests</li>
+                    <li>Teach without reviewing first</li>
+                    <li>Upload password-protected files</li>
+                    <li>Combine multiple tests in one PDF</li>
+                </ul>
+            </div>
+            
+            <!-- Pro Tips -->
+            <div class="section full-width" style="background: #d4edda; border-left-color: #28a745;">
+                <h2 style="color: #28a745;"><span class="section-icon">🌟</span>Pro Tips from Experienced Teachers</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px;">
+                    <div>
+                        <strong>📅 Batch Processing:</strong> Upload 3-5 tests at once on planning day. Process while you work on other tasks!
+                    </div>
+                    <div>
+                        <strong>📁 Build Your Library:</strong> Organize completed plans by unit. Reuse and improve each year!
+                    </div>
+                    <div>
+                        <strong>👥 Team Planning:</strong> Share test with grade-level team. Everyone gets same base plan to customize.
+                    </div>
+                    <div>
+                        <strong>⭐ Bookmark It:</strong> Star the upload folder in Drive for quick access. Save 30 seconds every time!
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Access Information -->
+            <div class="section" style="background: #cce5ff; border-left-color: #004085;">
+                <h2 style="color: #004085;"><span class="section-icon">🔑</span>How to Access</h2>
+                <div style="font-size: 12px; line-height: 1.5;">
+                    <p><strong>Google Drive Folder:</strong></p>
+                    <p style="margin-left: 10px;">Shared drives → "Tests to Convert"</p>
+                    <p style="margin-top: 8px;"><strong>Or Search:</strong> Type "Tests to Convert" in Drive search bar</p>
+                    <p style="margin-top: 8px;"><strong>First Time?</strong> Request access from your instructional tech coordinator</p>
+                </div>
+            </div>
+            
+            <!-- Time Savings -->
+            <div class="section" style="background: #fff3cd; border-left-color: #ffc107;">
+                <h2 style="color: #856404;"><span class="section-icon">⏰</span>Track Your Time Savings</h2>
+                <div style="font-size: 12px;">
+                    <p><strong>Traditional Planning:</strong> 2-3 hours per plan</p>
+                    <p><strong>With AI Generator:</strong> 5-10 minutes review</p>
+                    <p style="margin-top: 8px; padding: 8px; background: white; border-radius: 4px;">
+                        <strong>💰 Monthly Savings:</strong><br>
+                        10 plans × 2.5 hours = <span style="color: #28a745; font-size: 16px; font-weight: bold;">25 hours saved!</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-section">
+                <h3>📞 Need Help?</h3>
+                <p><strong>Tech Support:</strong></p>
+                <p>📧 support@yourschool.edu</p>
+                <p>☎️ (XXX) XXX-XXXX</p>
+                <p>🏢 Room [NUMBER]</p>
+            </div>
+            <div class="footer-section">
+                <h3>🕐 Office Hours</h3>
+                <p><strong>Drop-in Support:</strong></p>
+                <p>Every Wednesday 3:30-4:30 PM</p>
+                <p><strong>Appointments:</strong></p>
+                <p>Schedule at: [BOOKING LINK]</p>
+            </div>
+            <div class="footer-section">
+                <h3>📚 Resources</h3>
+                <p>🎥 Video Tutorials: [LINK]</p>
+                <p>📖 Full Guide: [LINK]</p>
+                <p>💬 Teacher Community: [LINK]</p>
+                <p>📝 Feedback Form: [LINK]</p>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;" class="no-print">
+        <p>Print this card and keep it at your desk for quick reference!</p>
+        <p style="margin-top: 10px;">Version 1.0 | Updated January 2025 | [Your School District]</p>
+    </div>
+</body>
+</html>
