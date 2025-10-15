@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Custom Automation Plan - ClusterFlow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="text-2xl font-bold text-indigo-600">ClusterFlow</div>
+        </div>
+    </header>
+
+    <!-- Form Section -->
+    <section class="max-w-3xl mx-auto px-6 py-16">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                Let's Build Your Custom Solution
+            </h1>
+            <p class="text-xl text-gray-700">
+                Answer a few quick questions so we can show you exactly which automations will give you the most time back.
+            </p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl p-10">
+            <form id="teacherForm">
+                <!-- Question 1 -->
+                <div class="mb-8">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        1. What takes up most of your time outside of actual teaching?
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg hover:border-indigo-300 cursor-pointer transition-all">
+                            <input type="checkbox" name="timeDrain" value="grading" class="w-5 h-5 text-indigo-600 mr-3">
+                            <span class="text-gray-700">Grading assignments and tests</span>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg hover:border-indigo-300 cursor-pointer transition-all">
+                            <input type="checkbox" name="timeDrain" value="lessonPlanning" class="w-5 h-5 text-indigo-600 mr-3">
+                            <span class="text-gray-700">Lesson planning and prep</span>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg hover:border-indigo-300 cursor-pointer transition-all">
+                            <input type="checkbox" name="timeDrain" value="parentComm" class="w-5 h-5 text-indigo-600 mr-3">
+                            <span class="text-gray-700">Parent communication and emails</span>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg hover:border-indigo-300 cursor-pointer transition-all">
+                            <input type="checkbox" name="timeDrain" value="dataEntry" class="w-5 h-5 text-indigo-600 mr-3">
+                            <span class="text-gray-700">Data entry and record keeping</span>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg hover:border-indigo-300 cursor-pointer transition-all">
+                            <input type="checkbox" name="timeDrain" value="attendance" class="w-5 h-5 text-indigo-600 mr-3">
+                            <span class="text-gray-700">Attendance and administrative reports</span>
+                        </label>
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg hover:border-indigo-300 cursor-pointer transition-all">
+                            <input type="checkbox" name="timeDrain" value="other" class="w-5 h-5 text-indigo-600 mr-3">
+                            <span class="text-gray-700">Other (please specify below)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="mb-8">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        2. How many hours per week do you spend on administrative tasks?
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <select name="hoursPerWeek" required class="w-full p-4 border-2 border-gray-200 rounded-lg text-gray-700 focus:border-indigo-500 focus:outline-none">
+                        <option value="">Select an option...</option>
+                        <option value="5-10">5-10 hours</option>
+                        <option value="10-15">10-15 hours</option>
+                        <option value="15-20">15-20 hours</option>
+                        <option value="20+">20+ hours (basically a second job)</option>
+                    </select>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="mb-8">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        3. What would you do with 10 extra hours every week?
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <textarea name="dreamScenario" required rows="4" placeholder="Spend more time with my family, develop better lessons, actually have hobbies again..." class="w-full p-4 border-2 border-gray-200 rounded-lg text-gray-700 focus:border-indigo-500 focus:outline-none"></textarea>
+                    <p class="text-sm text-gray-500 mt-2">This helps us understand what matters most to you.</p>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="mb-8">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        4. What grade/subject do you teach?
+                    </label>
+                    <input type="text" name="gradeSubject" placeholder="e.g., 5th Grade Math, High School English" class="w-full p-4 border-2 border-gray-200 rounded-lg text-gray-700 focus:border-indigo-500 focus:outline-none">
+                </div>
+
+                <!-- Question 5 -->
+                <div class="mb-8">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        5. What's your email?
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" name="email" required placeholder="your.email@school.edu" class="w-full p-4 border-2 border-gray-200 rounded-lg text-gray-700 focus:border-indigo-500 focus:outline-none">
+                    <p class="text-sm text-gray-500 mt-2">We'll send your custom automation plan here.</p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xl py-5 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                    Show Me My Custom Solution →
+                </button>
+            </form>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="mt-12 text-center">
+            <p class="text-gray-600 mb-4">
+                🔒 Your information is secure and will never be shared.
+            </p>
+            <p class="text-sm text-gray-500">
+                Join 500+ teachers who've already reclaimed their time.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('teacherForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would normally send the data to your backend
+            alert('Thank you! Redirecting to your personalized solution...');
+            // window.location.href = 'solution-page.html';
+        });
+    </script>
+</body>
+</html>
