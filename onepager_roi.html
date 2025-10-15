@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClusterFlow - Quick ROI Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <!-- Print-Optimized One-Pager -->
+    <div class="max-w-4xl mx-auto p-8">
+        <!-- Header -->
+        <div class="text-center mb-8 border-b-4 border-indigo-600 pb-6">
+            <div class="text-4xl font-bold text-indigo-600 mb-2">ClusterFlow</div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">School ROI Calculator</h1>
+            <p class="text-gray-600">Calculate Your Teacher Time & Cost Savings in 2 Minutes</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Left: Inputs -->
+            <div class="bg-yellow-50 rounded-xl p-6 border-2 border-yellow-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
+                    Your School's Info
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Number of Teachers</label>
+                        <input 
+                            type="number" 
+                            id="teachers" 
+                            value="30" 
+                            min="1"
+                            class="w-full p-3 border-2 border-gray-300 rounded-lg text-lg font-semibold focus:border-indigo-500 focus:outline-none"
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Average Teacher Salary</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-3 text-gray-500 text-lg">$</span>
+                            <input 
+                                type="number" 
+                                id="salary" 
+                                value="55000" 
+                                step="1000"
+                                class="w-full p-3 pl-8 border-2 border-gray-300 rounded-lg text-lg font-semibold focus:border-indigo-500 focus:outline-none"
+                            >
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Current Turnover Rate</label>
+                        <div class="relative">
+                            <input 
+                                type="number" 
+                                id="turnover" 
+                                value="20" 
+                                min="0" 
+                                max="100"
+                                class="w-full p-3 border-2 border-gray-300 rounded-lg text-lg font-semibold focus:border-indigo-500 focus:outline-none"
+                            >
+                            <span class="absolute right-3 top-3 text-gray-500 text-lg">%</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Admin Hours per Teacher/Week</label>
+                        <input 
+                            type="number" 
+                            id="adminHours" 
+                            value="15" 
+                            min="1"
+                            class="w-full p-3 border-2 border-gray-300 rounded-lg text-lg font-semibold focus:border-indigo-500 focus:outline-none"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Key Results -->
+            <div class="space-y-4">
+                <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white">
+                    <div class="text-sm font-semibold mb-1 opacity-90">ANNUAL TIME SAVED</div>
+                    <div class="text-5xl font-bold mb-2" id="timeSaved">-</div>
+                    <div class="text-sm opacity-90">staff hours per year</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white">
+                    <div class="text-sm font-semibold mb-1 opacity-90">COST SAVINGS</div>
+                    <div class="text-5xl font-bold mb-2" id="costSaved">-</div>
+                    <div class="text-sm opacity-90">operational efficiency</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white">
+                    <div class="text-sm font-semibold mb-1 opacity-90">RETENTION SAVINGS</div>
+                    <div class="text-5xl font-bold mb-2" id="retentionSaved">-</div>
+                    <div class="text-sm opacity-90">from reduced turnover</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total ROI Banner -->
+        <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 rounded-2xl p-8 text-white mb-8 text-center">
+            <div class="text-2xl font-semibold mb-3">TOTAL ANNUAL VALUE</div>
+            <div class="text-7xl font-bold mb-3" id="totalValue">-</div>
+            <div class="text-xl opacity-90 mb-6">Combined savings per year</div>
+            <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div class="bg-white/10 backdrop-blur rounded-lg p-4">
+                    <div class="text-sm opacity-90 mb-1">3-Year Value</div>
+                    <div class="text-3xl font-bold" id="threeYear">-</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-lg p-4">
+                    <div class="text-sm opacity-90 mb-1">5-Year Value</div>
+                    <div class="text-3xl font-bold" id="fiveYear">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breakdown Section -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <h3 class="font-bold text-gray-900 mb-3 flex items-center">
+                    <span class="text-green-600 mr-2">⏰</span>
+                    Time Impact
+                </h3>
+                <div class="space-y-2 text-sm text-gray-700">
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>Hours/teacher/week:</span>
+                        <strong id="hoursPerTeacher">-</strong>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>Weekly total:</span>
+                        <strong id="weeklyTotal">-</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Equals FTE:</span>
+                        <strong id="fte">-</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <h3 class="font-bold text-gray-900 mb-3 flex items-center">
+                    <span class="text-blue-600 mr-2">💰</span>
+                    Cost Efficiency
+                </h3>
+                <div class="space-y-2 text-sm text-gray-700">
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>Hourly rate:</span>
+                        <strong id="hourlyRate">-</strong>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>Monthly value:</span>
+                        <strong id="monthlyValue">-</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Annual value:</span>
+                        <strong id="annualCost">-</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <h3 class="font-bold text-gray-900 mb-3 flex items-center">
+                    <span class="text-purple-600 mr-2">🎯</span>
+                    Retention Math
+                </h3>
+                <div class="space-y-2 text-sm text-gray-700">
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>Teachers lost/year:</span>
+                        <strong id="teachersLost">-</strong>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>Improvement:</span>
+                        <strong id="improvement">-</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Savings:</span>
+                        <strong id="retentionValue">-</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="bg-blue-50 rounded-xl p-6 mb-8 border-2 border-blue-200">
+            <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center">
+                <span class="text-blue-600 mr-2">💡</span>
+                Key Insights
+            </h3>
+            <ul class="space-y-2 text-gray-800">
+                <li id="insight1" class="flex items-start">
+                    <span class="text-blue-600 mr-2">•</span>
+                    <span>-</span>
+                </li>
+                <li id="insight2" class="flex items-start">
+                    <span class="text-blue-600 mr-2">•</span>
+                    <span>-</span>
+                </li>
+                <li id="insight3" class="flex items-start">
+                    <span class="text-blue-600 mr-2">•</span>
+                    <span>-</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Assumptions -->
+        <div class="bg-gray-50 rounded-lg p-6 mb-8 border border-gray-200">
+            <h3 class="text-sm font-bold text-gray-700 mb-3">CALCULATION ASSUMPTIONS</h3>
+            <div class="grid md:grid-cols-4 gap-4 text-xs text-gray-600">
+                <div>
+                    <strong class="block text-gray-900">40%</strong>
+                    Admin time reduction
+                </div>
+                <div>
+                    <strong class="block text-gray-900">$20,000</strong>
+                    Cost per turnover
+                </div>
+                <div>
+                    <strong class="block text-gray-900">15%</strong>
+                    Retention improvement
+                </div>
+                <div>
+                    <strong class="block text-gray-900">36 weeks</strong>
+                    Instructional year
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl p-8 text-center text-white">
+            <h3 class="text-2xl font-bold mb-3">Ready to Make This Real?</h3>
+            <p class="text-lg mb-6 opacity-90">
+                Let's show you exactly how ClusterFlow creates these results for your school
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-indigo-600 font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition">
+                    Schedule a Demo
+                </button>
+                <button class="border-2 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-white/10 transition">
+                    Download Case Studies
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+            <p class="text-gray-600 text-sm mb-2">
+                <strong>ClusterFlow</strong> - Smart Automations for Educators
+            </p>
+            <p class="text-gray-500 text-xs">
+                www.clusterflow.com • hello@clusterflow.com • (555) 123-4567
+            </p>
+            <p class="text-gray-400 text-xs mt-2">
+                This calculator uses industry-standard research on teacher workload, turnover costs, and automation efficiency.
+            </p>
+        </div>
+
+        <!-- Print Button -->
+        <div class="text-center mt-6 print:hidden">
+            <button onclick="window.print()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-3 rounded-lg transition">
+                🖨️ Print or Save as PDF
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function formatCurrency(amount) {
+            return '$' + Math.round(amount).toLocaleString();
+        }
+
+        function formatNumber(num) {
+            return Math.round(num).toLocaleString();
+        }
+
+        function calculate() {
+            const teachers = parseInt(document.getElementById('teachers').value) || 0;
+            const salary = parseInt(document.getElementById('salary').value) || 55000;
+            const turnover = parseInt(document.getElementById('turnover').value) || 20;
+            const adminHours = parseInt(document.getElementById('adminHours').value) || 15;
+
+            if (teachers === 0) return;
+
+            // Constants
+            const WEEKS = 36;
+            const HOURS_PER_WEEK = 40;
+            const EFFICIENCY = 0.40;
+            const TURNOVER_COST = 20000;
+            const RETENTION_IMPROVEMENT = 0.15;
+
+            // Calculations
+            const hourlyRate = salary / (WEEKS * HOURS_PER_WEEK);
+            const hoursPerTeacher = adminHours * EFFICIENCY;
+            const weeklyHours = hoursPerTeacher * teachers;
+            const annualHours = weeklyHours * WEEKS;
+            const fte = annualHours / (HOURS_PER_WEEK * WEEKS);
+            
+            const costSavings = annualHours * hourlyRate;
+            const monthlyValue = costSavings / 12;
+            
+            const teachersLost = teachers * (turnover / 100);
+            const improvement = teachersLost * RETENTION_IMPROVEMENT;
+            const retentionSavings = improvement * TURNOVER_COST;
+            
+            const totalROI = costSavings + retentionSavings;
+            const threeYear = totalROI * 3;
+            const fiveYear = totalROI * 5 * 1.15;
+
+            // Update main cards
+            document.getElementById('timeSaved').textContent = formatNumber(annualHours);
+            document.getElementById('costSaved').textContent = formatCurrency(costSavings);
+            document.getElementById('retentionSaved').textContent = formatCurrency(retentionSavings);
+            document.getElementById('totalValue').textContent = formatCurrency(totalROI);
+            document.getElementById('threeYear').textContent = formatCurrency(threeYear);
+            document.getElementById('fiveYear').textContent = formatCurrency(fiveYear);
+
+            // Update breakdown
+            document.getElementById('hoursPerTeacher').textContent = hoursPerTeacher.toFixed(1) + 'h';
+            document.getElementById('weeklyTotal').textContent = formatNumber(weeklyHours) + 'h';
+            document.getElementById('fte').textContent = fte.toFixed(1) + ' FTE';
+            
+            document.getElementById('hourlyRate').textContent = formatCurrency(hourlyRate);
+            document.getElementById('monthlyValue').textContent = formatCurrency(monthlyValue);
+            document.getElementById('annualCost').textContent = formatCurrency(costSavings);
+            
+            document.getElementById('teachersLost').textContent = teachersLost.toFixed(1);
+            document.getElementById('improvement').textContent = improvement.toFixed(1) + ' saved';
+            document.getElementById('retentionValue').textContent = formatCurrency(retentionSavings);
+
+            // Update insights
+            document.getElementById('insight1').querySelector('span:last-child').textContent = 
+                `Your school could save the equivalent of ${fte.toFixed(1)} full-time teachers worth of administrative work annually.`;
+            
+            document.getElementById('insight2').querySelector('span:last-child').textContent = 
+                `At ${turnover}% turnover, you're spending ${formatCurrency(teachersLost * TURNOVER_COST)} per year replacing teachers. ClusterFlow could reduce this by ${formatCurrency(retentionSavings)}.`;
+            
+            document.getElementById('insight3').querySelector('span:last-child').textContent = 
+                `Total 5-year value of ${formatCurrency(fiveYear)} represents a significant strategic investment in teacher wellbeing and retention.`;
+        }
+
+        // Auto-calculate on input
+        ['teachers', 'salary', 'turnover', 'adminHours'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculate);
+        });
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
